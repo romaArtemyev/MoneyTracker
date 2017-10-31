@@ -4,12 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +53,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                if (!name.getText().toString().equals("")) add.setEnabled(true);
            }
        });
-
-        add.setOnClickListener(this);
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Пора покормить кота!", Toast.LENGTH_SHORT);
-        toast.show();
     }
 }
