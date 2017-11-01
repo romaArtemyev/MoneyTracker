@@ -28,12 +28,14 @@ public class MainActivity extends AppCompatActivity{
 
            @Override
            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+               if (name.getText().toString().equals("") || price.getText().toString().equals("")) {
+                   add.setEnabled(false);
+               } else add.setEnabled(true);
            }
 
            @Override
            public void afterTextChanged(Editable s) {
-                if (!price.getText().toString().equals("")) add.setEnabled(true);
+
            }
        });
 
@@ -45,12 +47,14 @@ public class MainActivity extends AppCompatActivity{
 
            @Override
            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+               if (name.getText().toString().equals("") || price.getText().toString().equals("")) {
+                   add.setEnabled(false);
+               } else add.setEnabled(true);
            }
 
            @Override
            public void afterTextChanged(Editable s) {
-               if (!name.getText().toString().equals("")) add.setEnabled(true);
+
            }
        });
     }
