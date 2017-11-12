@@ -11,10 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder>{
-    private ArrayList<Item> items = new ArrayList<>();
+    private List<Item> items = Collections.emptyList();
 
     static class ItemsViewHolder extends RecyclerView.ViewHolder {
         private Context context;
@@ -29,37 +30,22 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         }
 
         private void bind(Item item) {
-            name.setText(item.getName());
-            String string = String.format(context.getResources().getString(R.string.price), item.getPrice());
+            name.setText(item.name);
+            String string = String.format(context.getResources().getString(R.string.price), item.price);
             Spannable spannable = new SpannableString(string);
             spannable.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.white)), string.length()-1, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             price.setText(spannable);
         }
     }
 
-    ItemsAdapter() {
-        items.add(new Item("Молоко", 35));
-        items.add(new Item("Сковорода с антипригарным покрытием", 1500));
-        items.add(new Item("Зубная щетка", 55));
-        items.add(new Item("Молоко", 35));
-        items.add(new Item("Молоко", 35));
-        items.add(new Item("Сковорода с антипригарным покрытием", 1500));
-        items.add(new Item("Зубная щетка", 55));
-        items.add(new Item("Молоко", 35));
-        items.add(new Item("Молоко", 35));
-        items.add(new Item("Сковорода с антипригарным покрытием", 1500));
-        items.add(new Item("Зубная щетка", 55));
-        items.add(new Item("Молоко", 35));
-        items.add(new Item("Сковорода с антипригарным покрытием", 1500));
-        items.add(new Item("Зубная щетка", 55));
-        items.add(new Item("Молоко", 35));
-        items.add(new Item("Молоко", 35));
-        items.add(new Item("Сковорода с антипригарным покрытием", 1500));
-        items.add(new Item("Зубная щетка", 55));
-        items.add(new Item("Молоко", 35));
-        items.add(new Item("Молоко", 35));
-        items.add(new Item("Сковорода с антипригарным покрытием", 1500));
-        items.add(new Item("Зубная щетка", 55));
+    public void setItems (List<Item> items) {
+        this.items = items;
+        notifyDataSetChanged();
+    }
+
+    public void addItem (Item item, int id) {
+        this.items.add(id, item);
+        notifyDataSetChanged();
     }
 
     @Override
