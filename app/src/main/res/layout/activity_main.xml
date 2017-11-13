@@ -1,57 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_pattern"
     tools:context="com.loftschool.moneytracker.MainActivity"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:background="@android:color/white"
-        android:padding="16dp"
-        android:layout_height="wrap_content"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:elevation="10dp">
+        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/name"
-            android:layout_gravity="center_vertical"
-            android:background="@android:color/transparent"
-            android:inputType="text"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+        
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:maxLines="1"
-            android:hint="@string/item_name"/>
+            app:tabTextColor="@color/white"
+            app:tabIndicatorColor="@color/tab_indicator_color"/>
 
-        <EditText
-            android:id="@+id/price"
-            android:layout_gravity="center_vertical"
-            android:background="@android:color/transparent"
-            android:inputType="number"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:gravity="end"
-            android:maxLines="1"
-            android:hint="@string/price"
-            />
+    </android.support.design.widget.AppBarLayout>
+    
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <ImageButton
-            android:id="@+id/addBtn"
-            android:background="@android:color/transparent"
-            android:layout_marginStart="30dp"
-            android:src="@drawable/ic_add_black_24dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:scaleType="fitXY" />
-
-    </LinearLayout>
-
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

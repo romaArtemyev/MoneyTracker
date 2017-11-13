@@ -1,11 +1,9 @@
 package com.loftschool.moneytracker;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.widget.EditText;
-import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -14,48 +12,10 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final EditText name = findViewById(R.id.name);
-        final EditText price = findViewById(R.id.price);
-        final ImageButton add = findViewById(R.id.addBtn);
+        ViewPager pager = findViewById(R.id.pager);
+        TabLayout tabs = findViewById(R.id.tab_layout);
 
-        add.setEnabled(false);
-
-       name.addTextChangedListener(new TextWatcher() {
-           @Override
-           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-           }
-
-           @Override
-           public void onTextChanged(CharSequence s, int start, int before, int count) {
-               if (name.getText().toString().equals("") || price.getText().toString().equals("")) {
-                   add.setEnabled(false);
-               } else add.setEnabled(true);
-           }
-
-           @Override
-           public void afterTextChanged(Editable s) {
-
-           }
-       });
-
-       price.addTextChangedListener(new TextWatcher() {
-           @Override
-           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-           }
-
-           @Override
-           public void onTextChanged(CharSequence s, int start, int before, int count) {
-               if (name.getText().toString().equals("") || price.getText().toString().equals("")) {
-                   add.setEnabled(false);
-               } else add.setEnabled(true);
-           }
-
-           @Override
-           public void afterTextChanged(Editable s) {
-
-           }
-       });
+        pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), getResources()));
+        tabs.setupWithViewPager(pager);
     }
 }
