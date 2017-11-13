@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">MoneyTracker</string>
-    <string name="item_name">Название</string>
-    <string name="price">%1$d &#8381;</string>
-    <string name="priceForAdd">0 &#8381;</string>
+    <string name="main_scr_title">Учет бюджета</string>
     <string name="tab_spending">Расходы</string>
     <string name="tab_incomes">Доходы</string>
     <string name="tab_balance">Баланс</string>
@@ -14,4 +12,9 @@
     </string-array>
 
     <string name="balance_fragment">Balance Fragment</string>
+
+    <string name="add_scr_title">Новая запись</string>
+    <string name="item_name">Название</string>
+    <string name="price">%1$d &#8381;</string>
+    <string name="priceForAdd">0 &#8381;</string>
 </resources>
