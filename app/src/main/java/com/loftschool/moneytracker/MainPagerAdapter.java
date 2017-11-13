@@ -24,9 +24,9 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case PAGE_SPENDING:
-                return ItemsFragment.getItemsFragment(ItemsFragment.TYPE_SPENDING);
+                return ItemsFragment.getItemsFragment(Item.TYPE_SPENDING);
             case PAGE_INCOMES:
-                return ItemsFragment.getItemsFragment(ItemsFragment.TYPE_INCOMES);
+                return ItemsFragment.getItemsFragment(Item.TYPE_INCOMES);
             case PAGE_BALANCE:
                 return new BalanceFragment();
             default:
