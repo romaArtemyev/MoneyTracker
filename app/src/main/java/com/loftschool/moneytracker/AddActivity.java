@@ -1,13 +1,21 @@
 package com.loftschool.moneytracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 public class AddActivity extends AppCompatActivity{
+
+    public static final String EXTRA_TYPE = "type";
+    public static final String RESULT_ITEM = "item";
+    public static final int RC_ADD_ITEM = 99;
+
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +25,10 @@ public class AddActivity extends AppCompatActivity{
         final EditText name = findViewById(R.id.name);
         final EditText price = findViewById(R.id.price);
         final ImageButton add = findViewById(R.id.addBtn);
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.add_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         add.setEnabled(false);
 
@@ -55,6 +67,18 @@ public class AddActivity extends AppCompatActivity{
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        type = getIntent().getStringExtra(EXTRA_TYPE);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent result = new Intent();
+                result.putExtra(RESULT_ITEM, new Item (name.getText().toString(), Integer.parseInt(price.getText().toString()), type));
+                setResult(RESULT_OK, result);
+                finish();
             }
         });
     }

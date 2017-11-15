@@ -1,7 +1,9 @@
 package com.loftschool.moneytracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
@@ -13,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.loftschool.moneytracker.api.AddResult;
 import com.loftschool.moneytracker.api.Api;
 
 import java.io.IOException;
@@ -53,6 +54,15 @@ public class ItemsFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+        FloatingActionButton add_btn = view.findViewById(R.id.f_addBtn);
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddActivity.class);
+                intent.putExtra(AddActivity.EXTRA_TYPE, type);
+                startActivityForResult(intent, AddActivity.RC_ADD_ITEM);
+            }
+        });
 
         loadItems ();
     }
@@ -106,32 +116,41 @@ public class ItemsFragment extends Fragment {
         Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
     }
 
-    private void addItem (final Item item) {
-        getLoaderManager().restartLoader(ADD_ITEM, null, new LoaderManager.LoaderCallbacks<AddResult>() {
-            @Override
-            public Loader<AddResult> onCreateLoader(int id, Bundle args) {
-                return new AsyncTaskLoader<AddResult>(getContext()) {
-                    @Override
-                    public AddResult loadInBackground() {
-                        try {
-                            return api.add(item.name, item.price, item.type).execute().body();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            return null;
-                        }
-                    }
-                };
-            }
-
-            @Override
-            public void onLoadFinished(Loader<AddResult> loader, AddResult itemResult) {
-                adapter.addItem(item, itemResult.id);
-            }
-
-            @Override
-            public void onLoaderReset(Loader<AddResult> loader) {
-
-            }
-        });
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AddActivity.RC_ADD_ITEM && resultCode == AddActivity.RESULT_OK) {
+            Item item = (Item) data.getSerializableExtra(AddActivity.RESULT_ITEM);
+            Toast.makeText(getContext(), item.name + " " + item.price + "\u20BD", Toast.LENGTH_SHORT).show();
+        }
     }
+
+    //    private void addItem (final Item item) {
+//        getLoaderManager().restartLoader(ADD_ITEM, null, new LoaderManager.LoaderCallbacks<AddResult>() {
+//            @Override
+//            public Loader<AddResult> onCreateLoader(int id, Bundle args) {
+//                return new AsyncTaskLoader<AddResult>(getContext()) {
+//                    @Override
+//                    public AddResult loadInBackground() {
+//                        try {
+//                            return api.add(item.name, item.price, item.type).execute().body();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                            return null;
+//                        }
+//                    }
+//                };
+//            }
+//
+//            @Override
+//            public void onLoadFinished(Loader<AddResult> loader, AddResult itemResult) {
+//                adapter.addItem(item, itemResult.id);
+//            }
+//
+//            @Override
+//            public void onLoaderReset(Loader<AddResult> loader) {
+//
+//            }
+//        });
+//    }
 }
