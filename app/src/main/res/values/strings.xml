@@ -15,6 +15,12 @@
 
     <string name="add_scr_title">Новая запись</string>
     <string name="item_name">Название</string>
-    <string name="price">%1$d &#8381;</string>
+    <string name="price">%d &#8381;</string>
     <string name="priceForAdd">0 &#8381;</string>
+
+    <string name="menu_delete">Удалить</string>
+
+    <string name="are_you_sure">Уверены?</string>
+
+    <string name="action_mode_title">Выбрано %d</string>
 </resources>

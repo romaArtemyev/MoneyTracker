@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:minHeight="65dp"
+    android:background="@drawable/bg_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:layout_margin="5dp">
 
     <TextView
         style="@style/ItemText"
         android:id="@+id/item_name"
         tools:text="Молоко"
         android:textSize="20sp"
-        android:background="@color/bg_colorItem"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
@@ -23,10 +23,9 @@
         android:id="@+id/item_price"
         tools:text="35 ₽"
         android:textSize="24sp"
-        android:background="@color/bg_colorPrice"
+        android:background="@color/color_item_shadow"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"/>
-
 
 </LinearLayout>

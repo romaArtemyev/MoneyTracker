@@ -4,13 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -20,13 +25,15 @@ import com.loftschool.moneytracker.api.Api;
 import java.io.IOException;
 import java.util.List;
 
-public class ItemsFragment extends Fragment {
+public class ItemsFragment extends Fragment implements ConfirmationDialog.ConfirmationDialogListener{
 
     private static final String KEY_TYPE = "TYPE";
 
     private String type;
     private ItemsAdapter adapter;
     private Api api;
+    private ActionMode actionMode;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +61,54 @@ public class ItemsFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+
+        adapter.setListener(new ItemsAdapterListener() {
+            @Override
+            public void onItemClick(Item item, int pos) {
+                if (actionMode != null) {
+                    adapter.toggleSelection(pos);
+                    actionMode.setTitle(String.format(getString(R.string.action_mode_title), adapter.getSelectedItems().size()));
+                }
+            }
+
+            @Override
+            public void onItemLongClick(Item item, int pos) {
+                if (actionMode != null) return;
+
+                actionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(new ActionMode.Callback() {
+                    @Override
+                    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                        mode.getMenuInflater().inflate(R.menu.items_menu, menu);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.menu_delete:
+                                showDialog();
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+
+                    @Override
+                    public void onDestroyActionMode(ActionMode mode) {
+                        actionMode = null;
+                        adapter.clearSelectedItems();
+                    }
+                });
+            adapter.toggleSelection(pos);
+            actionMode.setTitle(String.format(getString(R.string.action_mode_title), adapter.getSelectedItems().size()));
+            }
+        });
+
         FloatingActionButton add_btn = view.findViewById(R.id.f_addBtn);
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +131,7 @@ public class ItemsFragment extends Fragment {
     }
 
     public static final int LOADER_ITEMS = 0;
-    public static final int ADD_ITEM = 1;
+//    public static final int ADD_ITEM = 1;
 
     public void loadItems() {
 
@@ -123,6 +178,29 @@ public class ItemsFragment extends Fragment {
             Item item = (Item) data.getSerializableExtra(AddActivity.RESULT_ITEM);
             Toast.makeText(getContext(), item.name + " " + item.price + "\u20BD", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void removeSelectedItems() {
+        for (int i = adapter.getSelectedItems().size()-1; i >= 0; i--) {
+            adapter.remove(adapter.getSelectedItems().get(i));
+        }
+    }
+
+    private void showDialog() {
+        DialogFragment dialogFragment = new ConfirmationDialog();
+        dialogFragment.setTargetFragment(this, 300);
+        dialogFragment.show(getFragmentManager(), "DialogFragment");
+    }
+
+    @Override
+    public void onDialogYes(DialogFragment dialogFragment) {
+        removeSelectedItems();
+        actionMode.finish();
+    }
+
+    @Override
+    public void onDialogNo(DialogFragment dialogFragment) {
+        actionMode.finish();
     }
 
     //    private void addItem (final Item item) {
