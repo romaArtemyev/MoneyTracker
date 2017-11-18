@@ -58,6 +58,17 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        final FloatingActionButton add_btn = view.findViewById(R.id.f_addBtn);
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddActivity.class);
+                intent.putExtra(AddActivity.EXTRA_TYPE, type);
+                startActivityForResult(intent, AddActivity.RC_ADD_ITEM);
+            }
+        });
+
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -79,6 +90,7 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
                     @Override
                     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                         mode.getMenuInflater().inflate(R.menu.items_menu, menu);
+                        add_btn.hide();
                         return true;
                     }
 
@@ -102,20 +114,11 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
                     public void onDestroyActionMode(ActionMode mode) {
                         actionMode = null;
                         adapter.clearSelectedItems();
+                        add_btn.show();
                     }
                 });
             adapter.toggleSelection(pos);
             actionMode.setTitle(String.format(getString(R.string.action_mode_title), adapter.getSelectedItems().size()));
-            }
-        });
-
-        FloatingActionButton add_btn = view.findViewById(R.id.f_addBtn);
-        add_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddActivity.class);
-                intent.putExtra(AddActivity.EXTRA_TYPE, type);
-                startActivityForResult(intent, AddActivity.RC_ADD_ITEM);
             }
         });
 
