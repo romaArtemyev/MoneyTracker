@@ -22,7 +22,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
+        android:elevation="@dimen/elevation"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:elevation="4dp">
+            android:elevation="@dimen/elevation">
 
             <EditText
                 android:id="@+id/name"
@@ -42,7 +42,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="@dimen/name_text_size"
                 android:maxLines="1"
                 android:hint="@string/item_name"/>
 
@@ -55,7 +55,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="@dimen/name_text_size"
                 android:gravity="end"
                 android:maxLines="1"
                 android:hint="@string/priceForAdd"
@@ -67,8 +67,8 @@
                 android:layout_marginStart="30dp"
                 android:src="@drawable/ic_add_black_24dp"
                 android:layout_gravity="center_vertical"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/add_btn_size"
+                android:layout_height="@dimen/add_btn_size"
                 android:scaleType="fitXY" />
 
         </LinearLayout>

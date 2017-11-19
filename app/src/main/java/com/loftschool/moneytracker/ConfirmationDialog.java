@@ -9,13 +9,13 @@ import android.support.v7.app.AlertDialog;
 
 public class ConfirmationDialog extends DialogFragment{
 
-    private boolean isYesOrNo = false;
+    private boolean isOkOrCancel = false;
 
     public interface ConfirmationDialogListener {
 
-        void onDialogYes(DialogFragment dialogFragment);
+        void onDialogOk(DialogFragment dialogFragment);
 
-        void onDialogNo(DialogFragment dialogFragment);
+        void onDialogCancel(DialogFragment dialogFragment);
     }
 
     ConfirmationDialogListener confirmationDialogListener;
@@ -33,15 +33,15 @@ public class ConfirmationDialog extends DialogFragment{
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        confirmationDialogListener.onDialogYes(ConfirmationDialog.this);
-                        isYesOrNo = true;
+                        confirmationDialogListener.onDialogOk(ConfirmationDialog.this);
+                        isOkOrCancel = true;
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        confirmationDialogListener.onDialogNo(ConfirmationDialog.this);
-                        isYesOrNo = true;
+                        confirmationDialogListener.onDialogCancel(ConfirmationDialog.this);
+                        isOkOrCancel = true;
                     }
                 });
 
@@ -52,8 +52,8 @@ public class ConfirmationDialog extends DialogFragment{
     public void onStop() {
         super.onStop();
         if (confirmationDialogListener != null) {
-            if (!isYesOrNo) {
-                confirmationDialogListener.onDialogNo(ConfirmationDialog.this);
+            if (!isOkOrCancel) {
+                confirmationDialogListener.onDialogCancel(ConfirmationDialog.this);
             }
         }
     }

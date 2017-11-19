@@ -59,8 +59,8 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        final FloatingActionButton add_btn = view.findViewById(R.id.f_addBtn);
-        add_btn.setOnClickListener(new View.OnClickListener() {
+        final FloatingActionButton addBtn = view.findViewById(R.id.f_addBtn);
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddActivity.class);
@@ -90,7 +90,7 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
                     @Override
                     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                         mode.getMenuInflater().inflate(R.menu.items_menu, menu);
-                        add_btn.hide();
+                        addBtn.hide();
                         return true;
                     }
 
@@ -114,7 +114,7 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
                     public void onDestroyActionMode(ActionMode mode) {
                         actionMode = null;
                         adapter.clearSelectedItems();
-                        add_btn.show();
+                        addBtn.show();
                     }
                 });
             adapter.toggleSelection(pos);
@@ -196,13 +196,13 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
     }
 
     @Override
-    public void onDialogYes(DialogFragment dialogFragment) {
+    public void onDialogOk(DialogFragment dialogFragment) {
         removeSelectedItems();
         actionMode.finish();
     }
 
     @Override
-    public void onDialogNo(DialogFragment dialogFragment) {
+    public void onDialogCancel(DialogFragment dialogFragment) {
         actionMode.finish();
     }
 
