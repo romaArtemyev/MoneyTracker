@@ -134,7 +134,6 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
     }
 
     public static final int LOADER_ITEMS = 0;
-//    public static final int ADD_ITEM = 1;
 
     public void loadItems() {
 
@@ -205,33 +204,4 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
     public void onDialogCancel(DialogFragment dialogFragment) {
         actionMode.finish();
     }
-
-    //    private void addItem (final Item item) {
-//        getLoaderManager().restartLoader(ADD_ITEM, null, new LoaderManager.LoaderCallbacks<AddResult>() {
-//            @Override
-//            public Loader<AddResult> onCreateLoader(int id, Bundle args) {
-//                return new AsyncTaskLoader<AddResult>(getContext()) {
-//                    @Override
-//                    public AddResult loadInBackground() {
-//                        try {
-//                            return api.add(item.name, item.price, item.type).execute().body();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                            return null;
-//                        }
-//                    }
-//                };
-//            }
-//
-//            @Override
-//            public void onLoadFinished(Loader<AddResult> loader, AddResult itemResult) {
-//                adapter.addItem(item, itemResult.id);
-//            }
-//
-//            @Override
-//            public void onLoaderReset(Loader<AddResult> loader) {
-//
-//            }
-//        });
-//    }
 }

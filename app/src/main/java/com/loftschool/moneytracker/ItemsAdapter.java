@@ -36,7 +36,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             name.setText(item.name);
             String string = String.format(context.getResources().getString(R.string.price), item.price);
             Spannable spannable = new SpannableString(string);
-//            spannable.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.white)), string.length()-1, string.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             spannable.setSpan(new AbsoluteSizeSpan(context.getResources().getDimensionPixelSize(R.dimen.rouble_size)), string.length()-1, string.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             price.setText(spannable);
 
@@ -67,11 +66,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     public void setListener(ItemsAdapterListener listener) {
         this.listener = listener;
     }
-
-//    public void addItem (Item item, int id) {
-//        this.items.add(id, item);
-//        notifyDataSetChanged();
-//    }
 
     @Override
     public ItemsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
