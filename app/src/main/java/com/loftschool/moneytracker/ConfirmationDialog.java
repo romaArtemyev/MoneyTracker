@@ -9,7 +9,7 @@ import android.support.v7.app.AlertDialog;
 
 public class ConfirmationDialog extends DialogFragment{
 
-    private boolean isYesOrNo = false;
+    private boolean isOkOrCancel = false;
 
     public interface ConfirmationDialogListener {
 
@@ -34,14 +34,14 @@ public class ConfirmationDialog extends DialogFragment{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         confirmationDialogListener.onDialogYes(ConfirmationDialog.this);
-                        isYesOrNo = true;
+                        isOkOrCancel = true;
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         confirmationDialogListener.onDialogNo(ConfirmationDialog.this);
-                        isYesOrNo = true;
+                        isOkOrCancel = true;
                     }
                 });
 
@@ -52,7 +52,7 @@ public class ConfirmationDialog extends DialogFragment{
     public void onStop() {
         super.onStop();
         if (confirmationDialogListener != null) {
-            if (!isYesOrNo) {
+            if (!isOkOrCancel) {
                 confirmationDialogListener.onDialogNo(ConfirmationDialog.this);
             }
         }

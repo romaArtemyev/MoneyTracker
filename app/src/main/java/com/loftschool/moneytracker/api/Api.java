@@ -15,4 +15,11 @@ public interface Api {
 
         @POST("items/add")
         Call<AddResult> add(@Query("name") String name, @Query("price") int price, @Query("type") String type);
+
+        @POST("items/remove")
+        Call<Result> remove(@Query("id") int id);
+
+        @GET("auth")
+        Call<AuthResult> auth(@Query("social_user_id")String socialUserId);
+
 }

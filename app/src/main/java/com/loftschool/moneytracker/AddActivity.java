@@ -1,5 +1,6 @@
 package com.loftschool.moneytracker;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,10 @@ public class AddActivity extends AppCompatActivity{
     public static final int RC_ADD_ITEM = 99;
 
     private String type;
+
+    public static void startForResult(Fragment fragment, String type, int requestCode) {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

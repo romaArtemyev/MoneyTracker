@@ -68,10 +68,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         this.listener = listener;
     }
 
-//    public void addItem (Item item, int id) {
-//        this.items.add(id, item);
-//        notifyDataSetChanged();
-//    }
+    public void updeteID (Item item, int id) {
+        item.id = id;
+        notifyItemChanged(id);
+    }
 
     @Override
     public ItemsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
