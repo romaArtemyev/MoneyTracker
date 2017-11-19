@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.loftschool.moneytracker.api.AddResult;
 import com.loftschool.moneytracker.api.Api;
+import com.loftschool.moneytracker.api.Result;
 
 import java.io.IOException;
 import java.util.List;
@@ -60,8 +61,8 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        final FloatingActionButton add_btn = view.findViewById(R.id.f_addBtn);
-        add_btn.setOnClickListener(new View.OnClickListener() {
+        final FloatingActionButton addBtn = view.findViewById(R.id.f_addBtn);
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddActivity.class);
@@ -91,7 +92,7 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
                     @Override
                     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                         mode.getMenuInflater().inflate(R.menu.items_menu, menu);
-                        add_btn.hide();
+                        addBtn.hide();
                         return true;
                     }
 
@@ -115,7 +116,7 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
                     public void onDestroyActionMode(ActionMode mode) {
                         actionMode = null;
                         adapter.clearSelectedItems();
-                        add_btn.show();
+                        addBtn.show();
                     }
                 });
             adapter.toggleSelection(pos);
@@ -136,9 +137,10 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
 
     public static final int LOADER_ITEMS = 0;
     public static final int ADD_ITEM = 1;
+    public static final int REMOVE_ITEM = 2;
 
     public void loadItems() {
-        getLoaderManager().restartLoader(LOADER_ITEMS, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
+        getLoaderManager().initLoader(LOADER_ITEMS, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
             @Override
             public Loader<List<Item>> onCreateLoader(int id, Bundle args) {
                 return new AsyncTaskLoader<List<Item>>(getContext()) {
@@ -170,6 +172,64 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
         }).forceLoad();
     }
 
+    private void addItem (final Item item) {
+        getLoaderManager().restartLoader(ADD_ITEM, null, new LoaderManager.LoaderCallbacks<AddResult>() {
+            @Override
+            public Loader<AddResult> onCreateLoader(int id, Bundle args) {
+                return new AsyncTaskLoader<AddResult>(getContext()) {
+                    @Override
+                    public AddResult loadInBackground() {
+                        try {
+                            return api.add(item.price, item.name, item.type).execute().body();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+                    }
+                };
+            }
+
+            @Override
+            public void onLoadFinished(Loader<AddResult> loader, AddResult itemResult) {
+                adapter.updeteID(item, itemResult.id);
+            }
+
+            @Override
+            public void onLoaderReset(Loader<AddResult> loader) {
+
+            }
+        }).forceLoad();
+    }
+
+    private void removeItem (final Item item) {
+        getLoaderManager().restartLoader(REMOVE_ITEM, null, new LoaderManager.LoaderCallbacks<Result>() {
+            @Override
+            public Loader<Result> onCreateLoader(int id, Bundle args) {
+                return new AsyncTaskLoader<Result>(getContext()) {
+                    @Override
+                    public Result loadInBackground() {
+                        try {
+                            return api.remove(item.id).execute().body();
+                        } catch (IOException e) {
+                            showError(e.getMessage());
+                            return null;
+                        }
+                    }
+                };
+            }
+
+            @Override
+            public void onLoadFinished(Loader<Result> loader, Result data) {
+
+            }
+
+            @Override
+            public void onLoaderReset(Loader<Result> loader) {
+
+            }
+        }).forceLoad();
+    }
+
     public void showError (String s) {
         Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
     }
@@ -185,7 +245,7 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
 
     private void removeSelectedItems() {
         for (int i = adapter.getSelectedItems().size()-1; i >= 0; i--) {
-            adapter.remove(adapter.getSelectedItems().get(i));
+            removeItem(adapter.remove(adapter.getSelectedItems().get(i)));
         }
     }
 
@@ -205,35 +265,4 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
     public void onDialogNo(DialogFragment dialogFragment) {
         actionMode.finish();
     }
-
-    private void addItem (final Item item) {
-        getLoaderManager().restartLoader(ADD_ITEM, null, new LoaderManager.LoaderCallbacks<AddResult>() {
-            @Override
-            public Loader<AddResult> onCreateLoader(int id, Bundle args) {
-                return new AsyncTaskLoader<AddResult>(getContext()) {
-                    @Override
-                    public AddResult loadInBackground() {
-                        try {
-                            return api.add(item.name, item.price, item.type).execute().body();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            return null;
-                        }
-                    }
-                };
-            }
-
-            @Override
-            public void onLoadFinished(Loader<AddResult> loader, AddResult itemResult) {
-                adapter.updeteID(item, itemResult.id);
-            }
-
-            @Override
-            public void onLoaderReset(Loader<AddResult> loader) {
-
-            }
-        });
-    }
-
-//    private void removeItem
 }

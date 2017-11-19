@@ -70,7 +70,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
     public void updeteID (Item item, int id) {
         item.id = id;
-        notifyItemChanged(id);
+        notifyDataSetChanged();
     }
 
     @Override

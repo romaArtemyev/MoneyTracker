@@ -75,6 +75,6 @@ public class App extends Application {
     }
 
     public boolean isLoggedIn() {
-        return !TextUtils.isEmpty(getAuthToken());
+        return TextUtils.isEmpty(getAuthToken());
     }
 }
