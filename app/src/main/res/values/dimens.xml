@@ -8,5 +8,12 @@
     <dimen name="add_btn_size">40dp</dimen>
     <dimen name="toolbar_name_indent">20dp</dimen>
     <dimen name="fab_add_btn_size">18dp</dimen>
+    <dimen name="add_activity_padding">16dp</dimen>
+    <dimen name="add_button_marginStart">30dp</dimen>
+    <dimen name="recycler_view_paddingTop">10dp</dimen>
+    <dimen name="layout_margin">5dp</dimen>
+    <dimen name="fab_borderWidth">0dp</dimen>
+    <dimen name="item_minHeight">65dp</dimen>
+    <dimen name="item_name_width">0dp</dimen>
 
 </resources>
