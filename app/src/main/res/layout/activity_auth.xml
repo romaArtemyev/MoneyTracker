@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:text="@string/intro_text"
         android:textSize="@dimen/text_intro_size"
+        android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:layout_centerInParent="true"
         android:layout_above="@id/gplus_button"

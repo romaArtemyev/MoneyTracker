@@ -3,6 +3,6 @@
     <dimen name="bg_intro_marginTop">15dp</dimen>
     <dimen name="gplus_button_marginTop">26dp</dimen>
     <dimen name="text_intro_size">14sp</dimen>
-    <dimen name="text_intro_marginStart">160dp</dimen>
+    <dimen name="text_intro_marginStart">150dp</dimen>
     <dimen name="text_intro_marginTop">12dp</dimen>
 </resources>
