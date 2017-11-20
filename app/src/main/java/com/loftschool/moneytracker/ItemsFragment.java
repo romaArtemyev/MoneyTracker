@@ -65,9 +65,7 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddActivity.class);
-                intent.putExtra(AddActivity.EXTRA_TYPE, type);
-                startActivityForResult(intent, AddActivity.RC_ADD_ITEM);
+                AddActivity.startForResult(ItemsFragment.this, type, AddActivity.RC_ADD_ITEM);
             }
         });
 

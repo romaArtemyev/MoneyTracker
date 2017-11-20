@@ -6,7 +6,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -38,9 +38,9 @@ public class AuthActivity extends AppCompatActivity {
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
                 .build();
 
-        Button signInBtn = findViewById(R.id.sign_in_button);
+        ImageButton gPlusButton = findViewById(R.id.gplus_button);
 
-        signInBtn.setOnClickListener(new View.OnClickListener() {
+        gPlusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(Auth.GoogleSignInApi.getSignInIntent(googleApiClient), RC_SIGN_IN);
@@ -75,10 +75,10 @@ public class AuthActivity extends AppCompatActivity {
 
                     @Override
                     public void onLoadFinished(Loader<AuthResult> loader, AuthResult data) {
-                        if (data == null && !data.isSucsess()) {
+                        if (data != null) {
                             ((App) getApplicationContext()).setAuthToken(data.authToken);
                             finish();
-                        } else {
+                      } else {
                             showError();
                         }
                     }
