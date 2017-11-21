@@ -254,13 +254,13 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
     }
 
     @Override
-    public void onDialogYes(DialogFragment dialogFragment) {
+    public void onDialogOk(DialogFragment dialogFragment) {
         removeSelectedItems();
         actionMode.finish();
     }
 
     @Override
-    public void onDialogNo(DialogFragment dialogFragment) {
+    public void onDialogCancel(DialogFragment dialogFragment) {
         actionMode.finish();
     }
 }

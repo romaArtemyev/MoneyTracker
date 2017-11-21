@@ -4,8 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
+import android.text.style.AbsoluteSizeSpan;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +36,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             name.setText(item.name);
             String string = String.format(context.getResources().getString(R.string.price), item.price);
             Spannable spannable = new SpannableString(string);
-            spannable.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.white)), string.length()-1, string.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new AbsoluteSizeSpan(context.getResources().getDimensionPixelSize(R.dimen.rouble_size)), string.length()-1, string.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             price.setText(spannable);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +71,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         item.id = id;
         notifyDataSetChanged();
     }
-
     @Override
     public ItemsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
