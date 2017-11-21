@@ -2,12 +2,13 @@
 <resources>
     <color name="colorPrimary">#96CAB9</color>
     <color name="colorPrimaryDark">#88B6A7</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#1CA498</color>
     <color name="backgroundColor">#84C0C5</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="tab_indicator_color">#FCFC91</color>
-    <color name="bg_colorItem">#FCC418</color>
-    <color name="bg_colorPrice">#E6AE1E</color>
+    <color name="color_item">#FCC418</color>
+    <color name="color_item_selected">#995200</color>
+    <color name="color_item_shadow">#30303030</color>
     <color name="fab_color">#15A599</color>
     </resources>

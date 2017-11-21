@@ -4,13 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -20,13 +25,15 @@ import com.loftschool.moneytracker.api.Api;
 import java.io.IOException;
 import java.util.List;
 
-public class ItemsFragment extends Fragment {
+public class ItemsFragment extends Fragment implements ConfirmationDialog.ConfirmationDialogListener{
 
     private static final String KEY_TYPE = "TYPE";
 
     private String type;
     private ItemsAdapter adapter;
     private Api api;
+    private ActionMode actionMode;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,16 +58,67 @@ public class ItemsFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        RecyclerView recyclerView = view.findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-        FloatingActionButton add_btn = view.findViewById(R.id.f_addBtn);
-        add_btn.setOnClickListener(new View.OnClickListener() {
+
+        final FloatingActionButton addBtn = view.findViewById(R.id.f_addBtn);
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddActivity.class);
                 intent.putExtra(AddActivity.EXTRA_TYPE, type);
                 startActivityForResult(intent, AddActivity.RC_ADD_ITEM);
+            }
+        });
+
+        RecyclerView recyclerView = view.findViewById(R.id.recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+
+        adapter.setListener(new ItemsAdapterListener() {
+            @Override
+            public void onItemClick(Item item, int pos) {
+                if (actionMode != null) {
+                    adapter.toggleSelection(pos);
+                    actionMode.setTitle(String.format(getString(R.string.action_mode_title), adapter.getSelectedItems().size()));
+                }
+            }
+
+            @Override
+            public void onItemLongClick(Item item, int pos) {
+                if (actionMode != null) return;
+
+                actionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(new ActionMode.Callback() {
+                    @Override
+                    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                        mode.getMenuInflater().inflate(R.menu.items_menu, menu);
+                        addBtn.hide();
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.menu_delete:
+                                showDialog();
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+
+                    @Override
+                    public void onDestroyActionMode(ActionMode mode) {
+                        actionMode = null;
+                        adapter.clearSelectedItems();
+                        addBtn.show();
+                    }
+                });
+            adapter.toggleSelection(pos);
+            actionMode.setTitle(String.format(getString(R.string.action_mode_title), adapter.getSelectedItems().size()));
             }
         });
 
@@ -76,7 +134,6 @@ public class ItemsFragment extends Fragment {
     }
 
     public static final int LOADER_ITEMS = 0;
-    public static final int ADD_ITEM = 1;
 
     public void loadItems() {
 
@@ -125,32 +182,26 @@ public class ItemsFragment extends Fragment {
         }
     }
 
-    //    private void addItem (final Item item) {
-//        getLoaderManager().restartLoader(ADD_ITEM, null, new LoaderManager.LoaderCallbacks<AddResult>() {
-//            @Override
-//            public Loader<AddResult> onCreateLoader(int id, Bundle args) {
-//                return new AsyncTaskLoader<AddResult>(getContext()) {
-//                    @Override
-//                    public AddResult loadInBackground() {
-//                        try {
-//                            return api.add(item.name, item.price, item.type).execute().body();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                            return null;
-//                        }
-//                    }
-//                };
-//            }
-//
-//            @Override
-//            public void onLoadFinished(Loader<AddResult> loader, AddResult itemResult) {
-//                adapter.addItem(item, itemResult.id);
-//            }
-//
-//            @Override
-//            public void onLoaderReset(Loader<AddResult> loader) {
-//
-//            }
-//        });
-//    }
+    private void removeSelectedItems() {
+        for (int i = adapter.getSelectedItems().size()-1; i >= 0; i--) {
+            adapter.remove(adapter.getSelectedItems().get(i));
+        }
+    }
+
+    private void showDialog() {
+        DialogFragment dialogFragment = new ConfirmationDialog();
+        dialogFragment.setTargetFragment(this, 300);
+        dialogFragment.show(getFragmentManager(), "DialogFragment");
+    }
+
+    @Override
+    public void onDialogOk(DialogFragment dialogFragment) {
+        removeSelectedItems();
+        actionMode.finish();
+    }
+
+    @Override
+    public void onDialogCancel(DialogFragment dialogFragment) {
+        actionMode.finish();
+    }
 }
