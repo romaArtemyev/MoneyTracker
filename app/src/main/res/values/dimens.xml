@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <dimen name="bg_intro_marginTop">15dp</dimen>
+    <dimen name="gplus_button_marginTop">26dp</dimen>
+    <dimen name="text_intro_size">14sp</dimen>
+    <dimen name="text_intro_marginStart">150dp</dimen>
+    <dimen name="text_intro_marginTop">12dp</dimen>
     <dimen name="name_text_size">20sp</dimen>
     <dimen name="price_text_size">24sp</dimen>
     <dimen name="rouble_size">20sp</dimen>
@@ -15,5 +19,4 @@
     <dimen name="fab_borderWidth">0dp</dimen>
     <dimen name="item_minHeight">65dp</dimen>
     <dimen name="item_name_width">0dp</dimen>
-
 </resources>

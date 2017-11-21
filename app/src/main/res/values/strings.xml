@@ -23,4 +23,6 @@
     <string name="are_you_sure">Уверены?</string>
 
     <string name="action_mode_title">Выбрано %d</string>
+
+    <string name="intro_text">Ваш незаменимый помощник в управлении бюджетом</string>
 </resources>

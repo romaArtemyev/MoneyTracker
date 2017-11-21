@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.loftschool.moneytracker.AuthActivity"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        android:layout_centerInParent="true"
+        android:layout_above="@+id/intro_text"/>
+
+    <TextView
+        android:id="@+id/intro_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/intro_text"
+        android:textSize="@dimen/text_intro_size"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_above="@id/gplus_button"
+        android:layout_marginStart="@dimen/text_intro_marginStart"
+        android:layout_marginTop="@dimen/text_intro_marginTop"/>
+
+    <ImageButton
+        android:id="@+id/gplus_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/gplus_button"
+        android:layout_above="@+id/bg_intro"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/gplus_button_marginTop"
+        android:background="@android:color/transparent"/>
+
+    <ImageView
+        android:id="@+id/bg_intro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bg_intro"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/bg_intro_marginTop"/>
+
+</RelativeLayout>

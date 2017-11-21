@@ -67,6 +67,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         this.listener = listener;
     }
 
+    public void updeteID (Item item, int id) {
+        item.id = id;
+        notifyDataSetChanged();
+    }
     @Override
     public ItemsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);

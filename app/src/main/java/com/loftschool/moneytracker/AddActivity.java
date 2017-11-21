@@ -17,6 +17,12 @@ public class AddActivity extends AppCompatActivity{
 
     private String type;
 
+    public static void startForResult(ItemsFragment fragment, String type, int requestCode) {
+        Intent intent = new Intent(fragment.getContext(), AddActivity.class);
+        intent.putExtra(EXTRA_TYPE, type);
+        fragment.startActivityForResult(intent, requestCode);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

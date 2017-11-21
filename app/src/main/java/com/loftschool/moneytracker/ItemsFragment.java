@@ -20,7 +20,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.loftschool.moneytracker.api.AddResult;
 import com.loftschool.moneytracker.api.Api;
+import com.loftschool.moneytracker.api.Result;
 
 import java.io.IOException;
 import java.util.List;
@@ -63,9 +65,7 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddActivity.class);
-                intent.putExtra(AddActivity.EXTRA_TYPE, type);
-                startActivityForResult(intent, AddActivity.RC_ADD_ITEM);
+                AddActivity.startForResult(ItemsFragment.this, type, AddActivity.RC_ADD_ITEM);
             }
         });
 
@@ -134,9 +134,10 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
     }
 
     public static final int LOADER_ITEMS = 0;
+    public static final int ADD_ITEM = 1;
+    public static final int REMOVE_ITEM = 2;
 
     public void loadItems() {
-
         getLoaderManager().initLoader(LOADER_ITEMS, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
             @Override
             public Loader<List<Item>> onCreateLoader(int id, Bundle args) {
@@ -146,7 +147,7 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
                         try {
                             return api.items(type).execute().body();
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            showError(e.getMessage());
                             return null;
                         }
                     }
@@ -169,6 +170,64 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
         }).forceLoad();
     }
 
+    private void addItem (final Item item) {
+        getLoaderManager().restartLoader(ADD_ITEM, null, new LoaderManager.LoaderCallbacks<AddResult>() {
+            @Override
+            public Loader<AddResult> onCreateLoader(int id, Bundle args) {
+                return new AsyncTaskLoader<AddResult>(getContext()) {
+                    @Override
+                    public AddResult loadInBackground() {
+                        try {
+                            return api.add(item.price, item.name, item.type).execute().body();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+                    }
+                };
+            }
+
+            @Override
+            public void onLoadFinished(Loader<AddResult> loader, AddResult itemResult) {
+                adapter.updeteID(item, itemResult.id);
+            }
+
+            @Override
+            public void onLoaderReset(Loader<AddResult> loader) {
+
+            }
+        }).forceLoad();
+    }
+
+    private void removeItem (final Item item) {
+        getLoaderManager().restartLoader(REMOVE_ITEM, null, new LoaderManager.LoaderCallbacks<Result>() {
+            @Override
+            public Loader<Result> onCreateLoader(int id, Bundle args) {
+                return new AsyncTaskLoader<Result>(getContext()) {
+                    @Override
+                    public Result loadInBackground() {
+                        try {
+                            return api.remove(item.id).execute().body();
+                        } catch (IOException e) {
+                            showError(e.getMessage());
+                            return null;
+                        }
+                    }
+                };
+            }
+
+            @Override
+            public void onLoadFinished(Loader<Result> loader, Result data) {
+
+            }
+
+            @Override
+            public void onLoaderReset(Loader<Result> loader) {
+
+            }
+        }).forceLoad();
+    }
+
     public void showError (String s) {
         Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
     }
@@ -178,13 +237,13 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AddActivity.RC_ADD_ITEM && resultCode == AddActivity.RESULT_OK) {
             Item item = (Item) data.getSerializableExtra(AddActivity.RESULT_ITEM);
-            Toast.makeText(getContext(), item.name + " " + item.price + "\u20BD", Toast.LENGTH_SHORT).show();
+            addItem(item);
         }
     }
 
     private void removeSelectedItems() {
         for (int i = adapter.getSelectedItems().size()-1; i >= 0; i--) {
-            adapter.remove(adapter.getSelectedItems().get(i));
+            removeItem(adapter.remove(adapter.getSelectedItems().get(i)));
         }
     }
 
