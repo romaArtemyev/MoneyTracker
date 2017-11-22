@@ -1,13 +1,77 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.loftschool.moneytracker.BalanceFragment">
+    tools:context="com.loftschool.moneytracker.BalanceFragment"
+    android:background="@drawable/bg_pattern">
+
     <TextView
+        android:id="@+id/balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/balance"
+        android:textSize="@dimen/balance_textSize"
+        android:textColor="@color/balance_color"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/balance_marginTop" />
+
+    <TextView
+        android:id="@+id/balance_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/balance_hint"
+        android:textSize="@dimen/balance_hint_textSize"
+        android:textColor="@color/hint_color"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/balance"/>
+
+    <TextView
+        android:id="@+id/spending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/spending"
+        android:textSize="@dimen/incomes_spending_textSize"
+        android:textColor="@color/spending_color"
+        android:layout_below="@+id/balance_hint"
+        android:layout_marginTop="@dimen/incomes_spending_marginTop"
+        android:layout_marginStart="@dimen/spending_marginStart"/>
+
+    <TextView
+        android:id="@+id/incomes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/incomes"
+        android:textSize="@dimen/incomes_spending_textSize"
+        android:textColor="@color/incomes_color"
+        android:layout_below="@+id/balance_hint"
+        android:layout_marginTop="@dimen/incomes_spending_marginTop"
+        android:layout_marginStart="@dimen/incomes_marginStart"/>
+
+    <TextView
+        android:id="@+id/spending_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/spending_hint"
+        android:textSize="@dimen/incomes_spending_hint_textSize"
+        android:textColor="@color/hint_color"
+        android:layout_below="@id/spending"
+        android:layout_marginStart="@dimen/spending_hint_marginStart"/>
+
+    <TextView
+        android:id="@+id/incomes_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/incomes_hint"
+        android:textSize="@dimen/incomes_spending_hint_textSize"
+        android:textColor="@color/hint_color"
+        android:layout_below="@id/incomes"
+        android:layout_marginStart="@dimen/incomes_hint_marginStart"/>
+
+    <com.loftschool.moneytracker.DiagramView
+        android:id="@+id/diagram"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/balance_fragment"
-        android:gravity="center"
-        android:textColor="@color/black"/>
+        android:layout_below="@id/incomes_hint"
+        android:layout_margin="@dimen/diagram_margin"/>
 
-</FrameLayout>
+</RelativeLayout>

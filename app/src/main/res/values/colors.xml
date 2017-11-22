@@ -6,9 +6,22 @@
     <color name="backgroundColor">#84C0C5</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
+    <!--MainActivity-->
+
     <color name="tab_indicator_color">#FCFC91</color>
+
+    <!--ItemsFragment-->
+
     <color name="color_item">#FCC418</color>
     <color name="color_item_selected">#995200</color>
     <color name="color_item_shadow">#30303030</color>
     <color name="fab_color">#15A599</color>
+
+    <!--BalanceFragment-->
+
+    <color name="balance_color">#3AB7AE</color>
+    <color name="spending_color">#F76C41</color>
+    <color name="incomes_color">#FCC31E</color>
+    <color name="hint_color">#95989A</color>
     </resources>

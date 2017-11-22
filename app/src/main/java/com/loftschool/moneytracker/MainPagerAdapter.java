@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class MainPagerAdapter extends FragmentPagerAdapter {
 
-    private static final int PAGE_SPENDING = 0;
+    private static final int PAGE_EXPENSES = 0;
     private static final int PAGE_INCOMES = 1;
     private static final int PAGE_BALANCE = 2;
 
@@ -23,8 +23,8 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case PAGE_SPENDING:
-                return ItemsFragment.getItemsFragment(Item.TYPE_SPENDING);
+            case PAGE_EXPENSES:
+                return ItemsFragment.getItemsFragment(Item.TYPE_EXPENSES);
             case PAGE_INCOMES:
                 return ItemsFragment.getItemsFragment(Item.TYPE_INCOMES);
             case PAGE_BALANCE:

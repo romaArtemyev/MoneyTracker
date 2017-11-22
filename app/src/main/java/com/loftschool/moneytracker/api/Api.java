@@ -22,4 +22,7 @@ public interface Api {
         @GET("auth")
         Call<AuthResult> auth(@Query("social_user_id")String socialUserId);
 
+        @GET("balance")
+        Call<BalanceResult> balance();
+
 }

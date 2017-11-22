@@ -6,21 +6,28 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_pattern"
     tools:context="com.loftschool.moneytracker.ItemsFragment"
-    android:layout_margin="5dp">
+    android:layout_margin="@dimen/layout_margin">
 
-    <android.support.v7.widget.RecyclerView
-        android:paddingTop="10dp"
-        android:id="@+id/recycler"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:paddingTop="@dimen/recycler_paddingTop"
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/f_addBtn"
-        android:layout_marginBottom="18dp"
-        android:layout_marginRight="18dp"
-        app:elevation="4dp"
-        app:borderWidth="0dp"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        app:elevation="@dimen/elevation"
+        app:borderWidth="@dimen/null_dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

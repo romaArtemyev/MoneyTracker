@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,6 +36,7 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
     private ItemsAdapter adapter;
     private Api api;
     private ActionMode actionMode;
+    private SwipeRefreshLayout refreshLayout;
 
 
     @Override
@@ -72,6 +74,14 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+
+        refreshLayout = view.findViewById(R.id.refresh);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadItems();
+            }
+        });
 
         adapter.setListener(new ItemsAdapterListener() {
             @Override
@@ -156,6 +166,7 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
 
             @Override
             public void onLoadFinished(Loader<List<Item>> loader, List<Item> items) {
+                refreshLayout.setRefreshing(false);
                 if (items == null) {
                     showError("error");
                 } else {

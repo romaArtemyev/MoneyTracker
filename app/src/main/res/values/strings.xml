@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">MoneyTracker</string>
+    <string name="price">%d &#8381;</string>
+
+    <!--MainActivity-->
+
     <string name="main_scr_title">Учет бюджета</string>
     <string name="tab_spending">Расходы</string>
     <string name="tab_incomes">Доходы</string>
@@ -11,18 +15,33 @@
         <item>@string/tab_balance</item>
     </string-array>
 
-    <string name="balance_fragment">Balance Fragment</string>
+    <!--AddActivity-->
 
     <string name="add_scr_title">Новая запись</string>
     <string name="item_name">Название</string>
-    <string name="price">%d &#8381;</string>
     <string name="priceForAdd">0 &#8381;</string>
 
+    <!--ItemsFragment-->
+
     <string name="menu_delete">Удалить</string>
-
     <string name="are_you_sure">Уверены?</string>
-
     <string name="action_mode_title">Выбрано %d</string>
 
+    <!--Item-->
+
+    <string name="name_text">Молоко</string>
+    <string name="price_text">35 ₽</string>
+
+    <!--AuthActivity-->
+
     <string name="intro_text">Ваш незаменимый помощник в управлении бюджетом</string>
+
+    <!--BalanceFragment-->
+
+    <string name="balance">14500 &#8381;</string>
+    <string name="spending">4500 &#8381;</string>
+    <string name="incomes">19000 &#8381;</string>
+    <string name="balance_hint">ваш баланс</string>
+    <string name="spending_hint">расход</string>
+    <string name="incomes_hint">доход</string>
 </resources>

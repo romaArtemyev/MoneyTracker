@@ -1,8 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="elevation">4dp</dimen>
+    <dimen name="null_dp">0dp</dimen>
+    <dimen name="layout_margin">5dp</dimen>
+
+    <!--MainActivity-->
+
+    <dimen name="toolbar_marginStart">20dp</dimen>
+
+    <!--AddActiivty-->
+
+    <dimen name="padding">16dp</dimen>
+    <dimen name="add_btn_marginStart">30dp</dimen>
+    <dimen name="add_btn_size">40dp</dimen>
+    <dimen name="add_textSize">20sp</dimen>
+
+    <!--ItemsFragment-->
+
+    <dimen name="recycler_paddingTop">10dp</dimen>
+    <dimen name="fab_margin">18dp</dimen>
+
+    <!--Item-->
+
+    <dimen name="minHeight">65dp</dimen>
+    <dimen name="name_textSize">20sp</dimen>
+    <dimen name="price_textSize">24sp</dimen>
+
+    <!--AuthActivity-->
+
     <dimen name="bg_intro_marginTop">15dp</dimen>
     <dimen name="gplus_button_marginTop">26dp</dimen>
     <dimen name="text_intro_size">14sp</dimen>
     <dimen name="text_intro_marginStart">150dp</dimen>
     <dimen name="text_intro_marginTop">12dp</dimen>
+
+    <!--BalanceFragment-->
+
+    <dimen name="balance_textSize">50sp</dimen>
+    <dimen name="balance_hint_textSize">20sp</dimen>
+    <dimen name="incomes_spending_textSize">24sp</dimen>
+    <dimen name="incomes_spending_hint_textSize">13sp</dimen>
+    <dimen name="balance_marginTop">50dp</dimen>
+    <dimen name="incomes_spending_marginTop">50dp</dimen>
+    <dimen name="spending_marginStart">70dp</dimen>
+    <dimen name="incomes_marginStart">220dp</dimen>
+    <dimen name="spending_hint_marginStart">85dp</dimen>
+    <dimen name="incomes_hint_marginStart">240dp</dimen>
+    <dimen name="diagram_margin">20dp</dimen>
 </resources>

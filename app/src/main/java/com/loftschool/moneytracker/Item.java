@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class Item implements Serializable{
 
     public static final String TYPE_UNKNOWN = "unknown";
-    public static final String TYPE_SPENDING = "spending";
-    public static final String TYPE_INCOMES = "incomes";
+    public static final String TYPE_EXPENSES = "expense";
+    public static final String TYPE_INCOMES = "income";
 
     public int id;
     public String name;

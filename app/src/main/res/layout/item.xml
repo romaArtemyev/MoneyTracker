@@ -2,19 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
-    android:minHeight="65dp"
+    android:minHeight="@dimen/minHeight"
     android:background="@drawable/bg_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:layout_margin="@dimen/layout_margin">
 
     <TextView
         style="@style/ItemText"
         android:id="@+id/item_name"
-        tools:text="Молоко"
-        android:textSize="20sp"
+        tools:text="@string/name_text"
+        android:textSize="@dimen/name_textSize"
         android:fontFamily="sans-serif-light"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/null_dp"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:layout_weight="1"/>
@@ -22,8 +22,8 @@
     <TextView
         style="@style/ItemText"
         android:id="@+id/item_price"
-        tools:text="35 ₽"
-        android:textSize="24sp"
+        tools:text="@string/price_text"
+        android:textSize="@dimen/price_textSize"
         android:background="@color/color_item_shadow"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
