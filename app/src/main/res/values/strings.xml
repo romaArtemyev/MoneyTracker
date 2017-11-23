@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MoneyTracker</string>
-    <string name="price">%d &#8381;</string>
+    <string name="price">%d&#8381;</string>
 
     <!--MainActivity-->
 
@@ -38,9 +38,9 @@
 
     <!--BalanceFragment-->
 
-    <string name="balance">14500 &#8381;</string>
-    <string name="spending">4500 &#8381;</string>
-    <string name="incomes">19000 &#8381;</string>
+    <string name="balance">14500&#8381;</string>
+    <string name="spending">4500&#8381;</string>
+    <string name="incomes">19000&#8381;</string>
     <string name="balance_hint">ваш баланс</string>
     <string name="spending_hint">расход</string>
     <string name="incomes_hint">доход</string>

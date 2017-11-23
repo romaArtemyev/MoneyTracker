@@ -274,4 +274,10 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
     public void onDialogNo(DialogFragment dialogFragment) {
         actionMode.finish();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadItems();
+    }
 }
