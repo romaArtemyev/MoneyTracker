@@ -26,6 +26,7 @@ import com.loftschool.moneytracker.api.Api;
 import com.loftschool.moneytracker.api.Result;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemsFragment extends Fragment implements ConfirmationDialog.ConfirmationDialogListener{
@@ -210,7 +211,7 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
         }).forceLoad();
     }
 
-    private void removeItem (final Item item) {
+    private void removeItem (final List<Item> items) {
         getLoaderManager().restartLoader(REMOVE_ITEM, null, new LoaderManager.LoaderCallbacks<Result>() {
             @Override
             public Loader<Result> onCreateLoader(int id, Bundle args) {
@@ -218,7 +219,11 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
                     @Override
                     public Result loadInBackground() {
                         try {
-                            return api.remove(item.id).execute().body();
+                            Result result = new Result();
+                            for (int i = 0; i <= items.size()-1; i++) {
+                                result = api.remove(items.get(i).id).execute().body();
+                            }
+                            return result;
                         } catch (IOException e) {
                             showError(e.getMessage());
                             return null;
@@ -253,9 +258,11 @@ public class ItemsFragment extends Fragment implements ConfirmationDialog.Confir
     }
 
     private void removeSelectedItems() {
+        List<Item> items = new ArrayList<>();
         for (int i = adapter.getSelectedItems().size()-1; i >= 0; i--) {
-            removeItem(adapter.remove(adapter.getSelectedItems().get(i)));
+            items.add(adapter.remove(adapter.getSelectedItems().get(i)));
         }
+        removeItem(items);
     }
 
     private void showDialog() {
